@@ -2,14 +2,13 @@ body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f2f2f2;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .container {
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
-  background-color: #fff;
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
@@ -73,8 +72,40 @@ li strong {
   font-weight: bold;
 }
 
-@media (max-width: 600px) {
-  li {
-    font-size: 12px;
-  }
+/* Tema Claro */
+body.theme-light {
+  background-color: #f2f2f2;
+  color: #333;
+}
+
+.container.theme-light {
+  background-color: #fff;
+}
+
+/* Tema Escuro */
+body.theme-dark {
+  background-color: #333;
+  color: #f2f2f2;
+}
+
+.container.theme-dark {
+  background-color: #444;
+  color: #f2f2f2;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.container.theme-dark input[type="text"],
+.container.theme-dark textarea,
+.container.theme-dark input[type="date"],
+.container.theme-dark input[type="number"] {
+  background-color: #555;
+}
+
+.container.theme-dark ul li {
+  background-color: #555;
+  border-color: #666;
+}
+
+.container.theme-dark ul li strong {
+  color: #f2f2f2;
 }
