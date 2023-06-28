@@ -5,9 +5,11 @@ function setTheme(theme) {
   if (theme === 'dark') {
     body.classList.add('theme-dark');
     containers.forEach(container => container.classList.add('theme-dark'));
+    document.getElementById('themeToggle').checked = true;
   } else {
     body.classList.remove('theme-dark');
     containers.forEach(container => container.classList.remove('theme-dark'));
+    document.getElementById('themeToggle').checked = false;
   }
 }
 

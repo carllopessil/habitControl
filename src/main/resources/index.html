@@ -4,10 +4,16 @@
     <title>Sistema de Gerenciamento de Tarefas</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
 </head>
 <body>
 <h1>Sistema de Gerenciamento de Tarefas</h1>
+<div class="theme-toggle">
+    <input type="checkbox" id="themeToggle" onchange="toggleTheme()" class="toggle-checkbox">
+    <label for="themeToggle" class="toggle-label"></label>
+</div>
+
 
 <form action="tasks" method="post">
     <label for="title">Título:</label>
@@ -36,6 +42,7 @@
     </li>
     <% } %>
 </ul>
+
 <script src="js/script.js"></script>
 </body>
 </html>

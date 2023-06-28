@@ -2,31 +2,58 @@ body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
   padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #f7f7f7;
   transition: background-color 0.3s, color 0.3s;
+  color: #333333;
 }
 
-.container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+.theme-dark {
+  background-color: #000000;
+  color: #ffffff;
 }
 
 h1 {
-  color: #333;
+  color: #000000;
   margin-top: 0;
   margin-bottom: 20px;
+  text-align: center;
+  align-self: center;
+}
+
+.container {
+  max-width: 600px;
+  padding: 40px;
+  border-radius: 10px;
+  background-color: #e5efc1;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s;
+  color: #333333;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 form {
   margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 label {
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   font-weight: bold;
+  color: #333333;
+  text-align: center;
 }
 
 input[type="text"],
@@ -36,23 +63,27 @@ input[type="number"] {
   width: 100%;
   padding: 10px;
   font-size: 14px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-  background-color: #f9f9f9;
+  border: none;
+  border-radius: 5px;
+  background-color: #a2d5ab;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s;
+  color: #333333;
 }
 
 input[type="submit"] {
   padding: 10px 15px;
   font-size: 14px;
-  background-color: #4CAF50;
-  color: #fff;
+  background-color: #39aea9;
+  color: #ffffff;
   border: none;
-  border-radius: 3px;
+  border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 input[type="submit"]:hover {
-  background-color: #45a049;
+  background-color: #557b83;
 }
 
 ul {
@@ -63,49 +94,110 @@ ul {
 li {
   margin-bottom: 10px;
   padding: 10px;
-  background-color: #f9f9f9;
-  border: 1px solid #ccc;
-  border-radius: 3px;
+  background-color: #557b83;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  color: #ffffff;
 }
 
 li strong {
   font-weight: bold;
 }
 
-/* Tema Claro */
-body.theme-light {
-  background-color: #f2f2f2;
-  color: #333;
+.theme-dark {
+  background-color: #000000;
+  color: #ffffff;
 }
 
-.container.theme-light {
+.theme-dark .container {
+  background-color: #e5efc1;
+  color: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.theme-dark input[type="text"],
+.theme-dark textarea,
+.theme-dark input[type="date"],
+.theme-dark input[type="number"] {
+  background-color: #557b83;
+  color: #ffffff;
+}
+.theme-toggle {
+  position: relative;
+  width: 60px;
+  height: 30px;
+}
+
+.toggle-checkbox {
+  display: none;
+}
+
+.toggle-label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #ddd;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.toggle-label:before {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 26px;
+  height: 26px;
   background-color: #fff;
+  border-radius: 50%;
+  transition: transform 0.3s;
 }
 
-/* Tema Escuro */
-body.theme-dark {
-  background-color: #333;
-  color: #f2f2f2;
+.toggle-checkbox:checked + .toggle-label {
+  background-color: #a2d5ab;
 }
 
-.container.theme-dark {
-  background-color: #444;
-  color: #f2f2f2;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+.toggle-checkbox:checked + .toggle-label:before {
+  transform: translateX(30px);
 }
 
-.container.theme-dark input[type="text"],
-.container.theme-dark textarea,
-.container.theme-dark input[type="date"],
-.container.theme-dark input[type="number"] {
-  background-color: #555;
+.theme-dark label,
+.theme-dark h1 {
+  color: #a2d5ab;
+}
+.theme-toggle {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
 }
 
-.container.theme-dark ul li {
-  background-color: #555;
-  border-color: #666;
+.theme-toggle label {
+  font-size: 14px;
+  color: #333333;
 }
 
-.container.theme-dark ul li strong {
-  color: #f2f2f2;
+.theme-toggle input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+.theme-dark input[type="submit"] {
+  background-color: #39aea9;
+}
+
+.theme-dark ul li {
+  background-color: #557b83;
+  color: #ffffff;
+}
+
+.theme-dark ul li strong {
+  color: #ffffff;
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 20px;
+  }
 }
