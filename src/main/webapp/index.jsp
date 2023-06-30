@@ -1,10 +1,14 @@
 <%@ page import="java.util.List" %>
 <%@ page import="model.Task" %>
+<%@ page contentType="text/html; charset=UTF-8" %>
+
 
 
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
+
     <title>Sistema de Gerenciamento de Tarefas</title>
     <meta charset="UTF-8">
     <style>
