@@ -2,15 +2,13 @@ package dao;
 
 import model.Task;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class TaskDAO {
+
     private Connection connection;
 
     public TaskDAO(Connection connection) {
@@ -18,7 +16,6 @@ public class TaskDAO {
     }
 
     public void addTask(Task task) {
-        System.out.println("entrou em adicionar task");
         String sql = "INSERT INTO tasks (title, description, due_date, priority) VALUES (?, ?, ?, ?)";
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -34,7 +31,6 @@ public class TaskDAO {
     }
 
     public List<Task> getAllTasks() {
-        System.out.println("entrou em pegar tasks");
         List<Task> tasks = new ArrayList<>();
         String sql = "SELECT * FROM tasks";
 

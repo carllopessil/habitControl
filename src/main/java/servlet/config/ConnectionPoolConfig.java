@@ -1,45 +1,46 @@
 package servlet.config;
 
-
-
 import org.apache.commons.dbcp2.BasicDataSource;
 
-import java.sql.Connection;
+import javax.sql.DataSource;
 import java.sql.SQLException;
 
 public class ConnectionPoolConfig {
 
-    private static BasicDataSource dataSource;
+    private static DataSource dataSource;
 
     private ConnectionPoolConfig() {
-
-        getDataSource();
+        initializeDataSource();
     }
 
-    public static BasicDataSource getDataSource() {
-
+    public static DataSource getDataSource() {
         if (dataSource == null) {
-            dataSource = new BasicDataSource();
-            dataSource.setUrl("jdbc:h2:~/test");
-            dataSource.setUsername("sa");
-            dataSource.setPassword("sa");
-            dataSource.setMinIdle(5);   // Número mínimo de conexões ociosas no pool
-            dataSource.setMaxIdle(10);  // Número máximo de conexões ociosas no pool
-            dataSource.setMaxTotal(50); // Número máximo de conexões totais no pool
-
-            System.out.println("New connection pool created with successful");
-
+            initializeDataSource();
         }
-
         return dataSource;
-
     }
 
-
-    public static Connection getConnection() throws SQLException {
-
-        return getDataSource().getConnection();
-
+    private static synchronized void initializeDataSource() {
+        if (dataSource == null) {
+            BasicDataSource basicDataSource = new BasicDataSource();
+            basicDataSource.setUrl("jdbc:h2:~/test");
+            basicDataSource.setUsername("sa");
+            basicDataSource.setPassword("sa");
+            basicDataSource.setMinIdle(5);
+            basicDataSource.setMaxIdle(10);
+            basicDataSource.setMaxTotal(50);
+            dataSource = basicDataSource;
+            System.out.println("New connection pool created successfully");
+        }
     }
 
+    public static void closeDataSource() {
+        if (dataSource != null) {
+            try {
+                ((BasicDataSource) dataSource).close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
 }
