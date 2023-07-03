@@ -9,3 +9,7 @@ Proximos passos:
 1 - Mapear pré requisitos;
 
 2 - Criar prototipo de alta fidelidade;
+
+Visão inicial da pagina principal do projeto:
+![img.png](img.png)
+![img_1.png](img_1.png)
