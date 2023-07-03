@@ -18,6 +18,7 @@ public class TaskDAO {
     }
 
     public void addTask(Task task) {
+        System.out.println("entrou em adicionar task");
         String sql = "INSERT INTO tasks (title, description, due_date, priority) VALUES (?, ?, ?, ?)";
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -33,6 +34,7 @@ public class TaskDAO {
     }
 
     public List<Task> getAllTasks() {
+        System.out.println("entrou em pegar tasks");
         List<Task> tasks = new ArrayList<>();
         String sql = "SELECT * FROM tasks";
 
