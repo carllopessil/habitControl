@@ -274,6 +274,16 @@
         body.classList.toggle('theme-dark');
     }
 </script>
+<script>
+    var prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
+
+    if (prefersDarkScheme.matches) {
+      var body = document.querySelector('body');
+      body.classList.add('theme-dark');
+      var toggleCheckbox = document.getElementById('themeToggle');
+      toggleCheckbox.checked = true;
+    }
+</script>
 
 </body>
 </html>
