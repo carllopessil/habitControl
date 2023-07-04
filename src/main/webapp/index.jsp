@@ -208,18 +208,31 @@
       .theme-dark ul li strong {
         color: #ffffff;
       }
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.rotate {
+    animation: rotate 2s linear infinite;
+}
 
       @media (max-width: 600px) {
         .container {
           padding: 20px;
         }
+
       }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
 <div style="display: flex; align-items: center;">
-    <img src="img/Logo.png" style=" width: 200px;" >
+    <img src="img/Logo.png" style="width: 200px;" class="rotate">
 </div>
 <h1>Task Manager</h1>
 <div class="theme-toggle">
