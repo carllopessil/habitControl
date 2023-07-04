@@ -2,8 +2,6 @@
 <%@ page import="model.Task" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
 
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -219,7 +217,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
-<h1>Sistema de Gerenciamento de Tarefas</h1>
+<div style="display: flex; align-items: center;">
+    <img src="img/Logo.png" style=" width: 200px;" >
+</div>
+<h1>Task Manager</h1>
 <div class="theme-toggle">
     <input type="checkbox" id="themeToggle" onchange="toggleTheme()" class="toggle-checkbox">
     <label for="themeToggle" class="toggle-label"></label>
@@ -235,39 +236,29 @@
     <input type="date" id="dueDate" name="dueDate" required>
     <br>
     <label for="priority">Prioridade:</label>
-    <input type="number" id="priority" name="priority" min="1" max="5" required>
+    <input type="number" id="priority" name="priority" min="1" max="10" required>
     <br>
     <input type="submit" value="Adicionar Tarefa">
 </form>
-<h2>Tarefas:</h2>
+<ul>
+    <% List<Task> tasks = (List<Task>) request.getAttribute("tasks");
+       if (tasks != null) {
+           for (Task task : tasks) {
+    %>
+    <li>
+        <strong>Título:</strong> <%= task.getTitle() %><br>
+        <strong>Descrição:</strong> <%= task.getDescription() %><br>
+        <strong>Data de Vencimento:</strong> <%= task.getDueDate() %><br>
+        <strong>Prioridade:</strong> <%= task.getPriority() %><br>
+    </li>
+    <% } } %>
+</ul>
 
 <script>
-  function setTheme(theme) {
-    const body = document.querySelector('body');
-    const containers = document.querySelectorAll('.container');
-
-    if (theme === 'dark') {
-      body.classList.add('theme-dark');
-      containers.forEach(container => container.classList.add('theme-dark'));
-      document.getElementById('themeToggle').checked = true;
-    } else {
-      body.classList.remove('theme-dark');
-      containers.forEach(container => container.classList.remove('theme-dark'));
-      document.getElementById('themeToggle').checked = false;
+    function toggleTheme() {
+        var body = document.querySelector('body');
+        body.classList.toggle('theme-dark');
     }
-  }
-
-  function toggleTheme() {
-    const body = document.querySelector('body');
-    const currentTheme = body.classList.contains('theme-dark') ? 'light' : 'dark';
-    setTheme(currentTheme);
-  }
-
-  // Verifica a preferência de tema do usuário no navegador
-  const userPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-  // Define o tema com base na preferência do usuário ou tema claro por padrão
-  setTheme(userPrefersDark ? 'dark' : 'light');
 </script>
 
 </body>
