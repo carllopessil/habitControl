@@ -1,21 +1,33 @@
 package model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Task {
+    private int id;
     private String title;
     private String description;
-    private Date dueDate;
+    private LocalDate dueDate;
     private int priority;
 
-    public Task(String title, String description, Date dueDate, int priority) {
+    public Task() {
+    }
+
+    public Task(String title, String description, LocalDate dueDate, int priority) {
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
         this.priority = priority;
     }
 
-    // Getters e setters
+    // Getters e Setters
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;
@@ -33,11 +45,11 @@ public class Task {
         this.description = description;
     }
 
-    public Date getDueDate() {
+    public LocalDate getDueDate() {
         return dueDate;
     }
 
-    public void setDueDate(Date dueDate) {
+    public void setDueDate(LocalDate dueDate) {
         this.dueDate = dueDate;
     }
 

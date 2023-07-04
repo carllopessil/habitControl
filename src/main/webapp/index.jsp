@@ -226,7 +226,7 @@
     <input type="checkbox" id="themeToggle" onchange="toggleTheme()" class="toggle-checkbox">
     <label for="themeToggle" class="toggle-label"></label>
 </div>
-<form action="tasks" method="post">
+<form action="teste" method="post">
     <label for="title">Título:</label>
     <input type="text" id="title" name="title" required>
     <br>

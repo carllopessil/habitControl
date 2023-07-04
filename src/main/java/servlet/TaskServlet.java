@@ -1,49 +1,37 @@
 package servlet;
 
-import dao.TaskDAO;
 import model.Task;
-import servlet.config.ConnectionPoolConfig;
+import dao.TaskDAO;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.sql.DataSource;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.List;
 
+@WebServlet("/teste")
 public class TaskServlet extends HttpServlet {
-
-    private DataSource dataSource;
     private TaskDAO taskDAO;
 
-    @Override
-    public void init() throws ServletException {
-        super.init();
-        try {
-            dataSource = ConnectionPoolConfig.getDataSource();
-            Connection connection = dataSource.getConnection();
-            taskDAO = new TaskDAO(connection);
-        } catch (SQLException e) {
-            throw new ServletException("Failed to initialize TaskServlet", e);
-        }
+    public void init() {
+        taskDAO = new TaskDAO();
     }
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         String title = request.getParameter("title");
         String description = request.getParameter("description");
+        LocalDate dueDate = LocalDate.parse(request.getParameter("dueDate"));
+        int priority = Integer.parseInt(request.getParameter("priority"));
 
-        Task task = new Task(title, description, null, 0);
+        Task task = new Task(title, description, dueDate, priority);
         taskDAO.addTask(task);
 
-        response.sendRedirect("console.jsp");
-    }
-
-    @Override
-    public void destroy() {
-        super.destroy();
-        ConnectionPoolConfig.closeDataSource();
+        List<Task> tasks = taskDAO.getAllTasks();
+        request.setAttribute("tasks", tasks);
+        request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 }

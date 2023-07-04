@@ -3,28 +3,28 @@ package dao;
 import model.Task;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class TaskDAO {
+    private static final String JDBC_URL ="jdbc:h2:~/test";
+    private static final String JDBC_USER = "sa";
+    private static final String JDBC_PASSWORD = "sa";
 
-    private Connection connection;
-
-    public TaskDAO(Connection connection) {
-        this.connection = connection;
-    }
+    private static final String INSERT_TASK = "INSERT INTO TASKS (title, description, due_date, priority) VALUES (?, ?, ?, ?)";
+    private static final String SELECT_ALL_TASKS = "SELECT * FROM TASKS";
 
     public void addTask(Task task) {
-        String sql = "INSERT INTO tasks (title, description, due_date, priority) VALUES (?, ?, ?, ?)";
+        try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
+             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_TASK)) {
 
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, task.getTitle());
-            statement.setString(2, task.getDescription());
-            statement.setDate(3, new java.sql.Date(task.getDueDate().getTime()));
-            statement.setInt(4, task.getPriority());
+            preparedStatement.setString(1, task.getTitle());
+            preparedStatement.setString(2, task.getDescription());
+            preparedStatement.setObject(3, task.getDueDate());
+            preparedStatement.setInt(4, task.getPriority());
 
-            statement.executeUpdate();
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -32,18 +32,25 @@ public class TaskDAO {
 
     public List<Task> getAllTasks() {
         List<Task> tasks = new ArrayList<>();
-        String sql = "SELECT * FROM tasks";
 
-        try (PreparedStatement statement = connection.prepareStatement(sql);
-             ResultSet resultSet = statement.executeQuery()) {
+        try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(SELECT_ALL_TASKS)) {
 
             while (resultSet.next()) {
+                int id = resultSet.getInt("id");
                 String title = resultSet.getString("title");
                 String description = resultSet.getString("description");
-                java.sql.Date dueDate = resultSet.getDate("due_date");
+                LocalDate dueDate = resultSet.getObject("due_date", LocalDate.class);
                 int priority = resultSet.getInt("priority");
 
-                Task task = new Task(title, description, new Date(dueDate.getTime()), priority);
+                Task task = new Task();
+                task.setId(id);
+                task.setTitle(title);
+                task.setDescription(description);
+                task.setDueDate(dueDate);
+                task.setPriority(priority);
+
                 tasks.add(task);
             }
         } catch (SQLException e) {
@@ -53,3 +60,4 @@ public class TaskDAO {
         return tasks;
     }
 }
+
