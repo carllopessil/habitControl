@@ -7,8 +7,9 @@
 <head>
 <meta charset="UTF-8">
 
-    <title>Sistema de Gerenciamento de Tarefas</title>
+    <title>Task Manager</title>
     <meta charset="UTF-8">
+     <link rel="icon" href="img/Logo.png" type="image/x-icon">
     <style>
       body {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
