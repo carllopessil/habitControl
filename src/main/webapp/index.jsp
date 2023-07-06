@@ -10,6 +10,50 @@
 <meta charset="UTF-8">
 <link rel="icon" href="img/Logo.png" type="image/x-icon">
 <style>
+@keyframes colorAnimation {
+  0% { color: #AE0CFC; }
+  33% { color: #C40A78; }
+  66% { color: #03DFB9; }
+  100% { color: #AE0CFC; }
+}
+
+.title {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  white-space: nowrap; /* Impede que o texto seja dividido em várias linhas */
+  animation: colorAnimation 6s infinite;
+}
+::-webkit-scrollbar {
+  width: 11px;
+  background-color: #e5efc1;
+  border-radius: 15px;
+  padding-left: 10px;
+}
+
+/* Cor de fundo da barra de rolagem */
+::-webkit-scrollbar-track {
+  background-color: #e5efc1;
+}
+
+/* Cor do indicador da barra de rolagem */
+::-webkit-scrollbar-thumb {
+  background-color: #39aea9;
+  border-radius: 5px;
+}
+
+/* Estilos quando hover na barra de rolagem */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #a2d5ab;
+}
+
+/* Estilos para a barra de rolagem fixa */
+::-webkit-scrollbar-corner {
+  background-color: #e5efc1;
+  border-radius: 15px;
+}
+
     .title {
         position: absolute;
         top: 50%;
@@ -74,6 +118,7 @@
         font-weight: bold;
         color: #333333;
         text-align: center;
+        font-size: 30px;
     }
 
     input[type="text"],
@@ -257,10 +302,11 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
-    <div style="position: absolute; top: 10px; left: 41%;">
-        <img src="img/Logo.png" style="width: 110px;" class="rotate">
-        <h1 class="title">Task Manager</h1>
-    </div>
+<div style="position: absolute; top: 10px; left: 38%;">
+    <img src="img/Logo.png" style="width: 110px;" class="rotate">
+    <h1 class="title" style="font-size: 50px;">Task Manager</h1>
+</div>
+
 
     <div class="theme-toggle">
         <span>modo</span>
@@ -284,20 +330,24 @@
         <input type="submit" value="Adicionar Tarefa">
     </form>
 </div>
-    <ul>
-        <% List<Task> tasks = (List<Task>) request.getAttribute("tasks");
-           if (tasks != null) {
-               for (Task task : tasks) {
-        %>
-        <li>
-            <strong>Título:</strong> <%= task.getTitle() %><br>
-            <strong>Descrição:</strong> <%= task.getDescription() %><br>
-            <strong>Data de Vencimento:</strong> <%= task.getDueDate() %><br>
-            <strong>Prioridade:</strong> <%= task.getPriority() %><br>
-        </li>
-        <% } } %>
-    </ul>
+<div style="max-height: 500px; overflow: auto;">
+   <ul style="margin-right: 10px;">
+<% List<Task> tasks = (List<Task>) request.getAttribute("tasks");
+   if (tasks != null) {
+       for (Task task : tasks) {
+%>
+<li style="max-width: 400px;">
+    <div style="text-align: center;">
+        <strong style="font-weight: bold; font-size: 18px;"><%= task.getTitle() %></strong><br>
+    </div>
+    <div style="word-wrap: break-word; max-width: 400px;"><%= task.getDescription() %></div><br>
+    <strong>Data de Vencimento:</strong> <%= task.getDueDate() %><br>
+    <strong>Prioridade:</strong> <%= task.getPriority() %><br>
+</li>
+<% } } %>
 
+
+</div>
     <script>
         function toggleTheme() {
             var body = document.querySelector('body');
