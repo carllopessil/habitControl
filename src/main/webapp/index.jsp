@@ -331,20 +331,21 @@
     </form>
 </div>
 <div style="max-height: 500px; overflow: auto;">
-   <ul style="margin-right: 10px;">
-<% List<Task> tasks = (List<Task>) request.getAttribute("tasks");
-   if (tasks != null) {
-       for (Task task : tasks) {
-%>
-<li style="max-width: 400px;">
-    <div style="text-align: center;">
-        <strong style="font-weight: bold; font-size: 18px;"><%= task.getTitle() %></strong><br>
-    </div>
-    <div style="word-wrap: break-word; max-width: 400px;"><%= task.getDescription() %></div><br>
-    <strong>Data de Vencimento:</strong> <%= task.getDueDate() %><br>
-    <strong>Prioridade:</strong> <%= task.getPriority() %><br>
-</li>
-<% } } %>
+  <ul style="margin-right: 10px;">
+  <% List<Task> tasks = (List<Task>) request.getAttribute("tasks");
+     if (tasks != null) {
+         for (Task task : tasks) {
+  %>
+  <li style="max-width: 400px;">
+      <div style="text-align: center;">
+          <strong style="font-weight: bold; font-size: 18px;"><%= task.getTitle() %></strong><br>
+      </div>
+      <div style="word-wrap: break-word; max-width: 400px;"><%= task.getDescription() %></div><br>
+      <strong>Data de Vencimento:</strong> <%= task.getDueDate() %><br>
+      <strong>Prioridade:</strong> <%= task.getPriority() %><br>
+  </li>
+  <% } } %>
+  </ul>
 
 
 </div>

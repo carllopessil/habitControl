@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
+
+
 @WebServlet("/teste")
 public class TaskServlet extends HttpServlet {
     private TaskDAO taskDAO;
@@ -32,6 +34,17 @@ public class TaskServlet extends HttpServlet {
 
         List<Task> tasks = taskDAO.getAllTasks();
         request.setAttribute("tasks", tasks);
+
+        doGet(request, response); // Redirecionar para o método doGet
+    }
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        doPost(request, response); // Atualizar lista de tarefas
+
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
+
+
+
 }
